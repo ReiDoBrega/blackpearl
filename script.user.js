@@ -3,7 +3,20 @@
 // @version     1.1.0
 // @description Template Maker
 // @author      NotLaxudope
-// @include     https://blackpearl.biz/*
+// @include     https://blackpearl.biz/forums/204/post-thread
+// @include     https://blackpearl.biz/forums/183/post-thread
+// @include     https://blackpearl.biz/forums/184/post-thread
+// @include     https://blackpearl.biz/forums/172/post-thread
+// @include     https://blackpearl.biz/forums/173/post-thread
+// @include     https://blackpearl.biz/forums/174/post-thread
+// @include     https://blackpearl.biz/forums/176/post-thread
+// @include     https://blackpearl.biz/forums/178/post-thread
+// @include     https://blackpearl.biz/forums/179/post-thread
+// @include     https://blackpearl.biz/forums/180/post-thread
+// @include     https://blackpearl.biz/forums/181/post-thread
+// @include     https://blackpearl.biz/forums/182/post-thread
+// @include     https://blackpearl.biz/forums/202/post-thread
+// @include     https://blackpearl.biz/forums/129/post-thread
 // @require     https://code.jquery.com/jquery-3.2.1.min.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
