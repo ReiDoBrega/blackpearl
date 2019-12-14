@@ -28,9 +28,10 @@ const APIKEY = "OMDB_API_KEY_GOES_HERE"
 $("body").append ( '                                                          \
     <div id="gmPopupContainer">                                               \
     <form> <!-- For true form use method="POST" action="YOUR_DESIRED_URL" --> \
-        <input type="text" id="myNumber1" value="" class="input" placeholder="Enter Youtube Trailer Link">                           \
+        <input type="text" id="myNumber1" value="" class="input" placeholder="Enter Youtube Trailer Link">                   \
         <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                           \
-        <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                                                                      \
+        <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                    \
+        <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>                  \
         <p id="myNumberSum">&nbsp;</p>                                        \
         <button id="gmAddNumsBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Generate Template</button>  \
         <button id="gmCloseDlgBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Close popup</button>         \
@@ -44,6 +45,7 @@ $("#gmAddNumsBtn").click ( function () {
     var uToob   = $("#myNumber1").val ();
     var ddl   = $("#myNumber2").val ();
     var IID   = $("#myNumber3").val ();
+    var MEDIAINFO = $("#myNumber4").val ();
 GM_xmlhttpRequest({
 method: "GET",
 url: "http://www.omdbapi.com/?apikey="+APIKEY+"&i="+IID+"&plot=full&y&r=json",
@@ -81,7 +83,9 @@ var json = JSON.parse(response.responseText);
     dump += "[*][B]Starring: [/B] "+actors+"\n"
     dump += "[*][B]Release Date: [/B] "+released+"\n"
     dump += "[*][B]Runtime: [/B] "+runtime+"\n"
-    dump += "[*][B]Production: [/B] "+production+"\n"    
+    dump += "[*][B]Production: [/B] "+production+"\n[/LIST]"  
+    dump += "[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Media Info[/b][/color][/size][/indent]\n\n"
+    dump += "[spoiler='Click here to view Media Info']"+MEDIAINFO+"[/spoiler]\n"
     dump += "[hr][/hr][center][size=6][color=rgb(250, 197, 28)][b]Download Link[/b][/color][/size][/center]\n\n"
     dump += "[center][hidereactscore=5][hidereact=1,2,3,4,5,6][DOWNCLOUD]"+ddl+"[/DOWNCLOUD][/hidereact][/hidereactscore][/center]\n"
     GM_setClipboard (dump);
@@ -98,7 +102,7 @@ $("#gmCloseDlgBtn").click ( function () {
 GM_addStyle ( "                                                 \
     #gmPopupContainer {                                         \
         position:               fixed;                          \
-        top:                    60%;                            \
+        top:                    53%;                            \
         left:                   70%;                            \
         padding:                2em;                            \
         background:             #42464D;                     \
