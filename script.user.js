@@ -21,36 +21,49 @@
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
 // @grant       GM_setClipboard
+// @grant       GM.setValue
+// @grant       GM.getValue
 // ==/UserScript==
 
-const APIKEY = "OMDB_API_KEY_GOES_HERE"
+GM.getValue("APIKEY", "foo").then(value => { const APIVALUE = value
+if (APIVALUE !== 'foo'){
+   var omdbstyle = `style="visibility:hidden"`;
+}
 
-$("body").append ( '                                                          \
-    <div id="gmPopupContainer">                                               \
-    <form> <!-- For true form use method="POST" action="YOUR_DESIRED_URL" --> \
-        <input type="text" id="myNumber1" value="" class="input" placeholder="Enter Youtube Trailer Link">                   \
-        <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                           \
-        <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                    \
-        <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>                  \
-        <p id="myNumberSum">&nbsp;</p>                                        \
+
+$("body").append ( `                                                                                                                                     \
+    <div id="gmPopupContainer">                                                                                                                          \
+    <form> <!-- For true form use method="POST" action="YOUR_DESIRED_URL" -->                                                                            \
+        <input type="text" id="myNumber5" value="" ${omdbstyle} class="input" placeholder="Omdb API Key">                                                \
+        <input type="text" id="myNumber1" value="" class="input" placeholder="Enter Youtube Trailer Link">                                               \
+        <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                                                      \
+        <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                                              \
+        <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>        \
+        <p id="myNumberSum">&nbsp;</p>                                                                                                                   \
         <button id="gmAddNumsBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Generate Template</button>  \
-        <button id="gmCloseDlgBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Close popup</button>         \
-    </form>                                                                   \
-    </div>                                                                    \
-' );
+        <button id="gmCloseDlgBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Close popup</button>       \
+    </form>                                                                                                                                              \
+    </div>                                                                                                                                               \
+` );
 
 
 //--- Use jQuery to activate the dialog buttons.
 $("#gmAddNumsBtn").click ( function () {
+    var omdbkey   = $("#myNumber5").val ();
     var uToob   = $("#myNumber1").val ();
     var ddl   = $("#myNumber2").val ();
     var IID   = $("#myNumber3").val ();
     var MEDIAINFO = $("#myNumber4").val ();
+    if (omdbkey) {
+       GM.setValue("APIKEY", omdbkey);
+    }
+GM.getValue("APIKEY", "foo").then(value => {
+    const APIKEY = value
 GM_xmlhttpRequest({
 method: "GET",
-url: "http://www.omdbapi.com/?apikey="+APIKEY+"&i="+IID+"&plot=full&y&r=json",
+url: `http://www.omdbapi.com/?apikey=${APIKEY}&i=${IID}&plot=full&y&r=json`,
 onload: function(response) {
-  
+
 var json = JSON.parse(response.responseText);
     var title = json.Title;
     var year = json.Year;
@@ -67,31 +80,30 @@ var json = JSON.parse(response.responseText);
     var imdb_id = json.imdbID;
     var imdbvotes = json.imdbVotes;
     var production = json.Production;
-    var dump = "[center][img]" + poster + "[/img]\n"
-    dump += "[color=rgb(250, 197, 28)][b][size=6]"+title+" ("+year+")[/size][/b][/color]\n"
-    dump += "[url=https://www.imdb.com/title/"+imdb_id+"][img]https://i.imgur.com/rcSipDw.png[/img][/url][size=6][b] "+rating+"[/b]/10[/size]\n"
-    dump += "[size=6][img]https://i.imgur.com/sEpKj3O.png[/img]"+imdbvotes+"[/size][/center]\n"
-    dump += "[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Plot[/b][/color][/size][/indent]\n\n"
-    dump += plot
-    dump += "[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Trailer[/b][/color][/size][/indent]\n\n"
-    dump += "[media=youtube]"+uToob.split("v=")[1]+"[/media]\n"
-    dump += "[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Movie Info[/b][/color][/size][/indent]\n\n"
-    dump += "[LIST][*][B]Rating: [/B]"+rated+"\n"
-    dump += "[*][B]Genre: [/B] "+genre+"\n"
-    dump += "[*][B]Directed By: [/B] "+director+"\n"
-    dump += "[*][B]Written By: [/B] "+writer+"\n"
-    dump += "[*][B]Starring: [/B] "+actors+"\n"
-    dump += "[*][B]Release Date: [/B] "+released+"\n"
-    dump += "[*][B]Runtime: [/B] "+runtime+"\n"
-    dump += "[*][B]Production: [/B] "+production+"\n[/LIST]"  
-    dump += "[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Media Info[/b][/color][/size][/indent]\n\n"
-    dump += "[spoiler='Click here to view Media Info']"+MEDIAINFO+"[/spoiler]\n"
-    dump += "[hr][/hr][center][size=6][color=rgb(250, 197, 28)][b]Download Link[/b][/color][/size][/center]\n\n"
-    dump += "[center][hidereactscore=5][hidereact=1,2,3,4,5,6][DOWNCLOUD]"+ddl+"[/DOWNCLOUD][/hidereact][/hidereactscore][/center]\n"
+    var dump = `[center][img] ${poster} [/img]
+[color=rgb(250, 197, 28)][b][size=6] ${title} (${year})[/size][/b][/color]
+[url=https://www.imdb.com/title/${imdb_id}][img]https://i.imgur.com/rcSipDw.png[/img][/url][size=6][b] ${rating}[/b]/10[/size]
+[size=6][img]https://i.imgur.com/sEpKj3O.png[/img]${imdbvotes}[/size][/center]
+[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Plot[/b][/color][/size][/indent]\n\n ${plot}
+[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Trailer[/b][/color][/size][/indent]\n
+${uToob}
+[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Movie Info[/b][/color][/size][/indent]\n
+[LIST][*][B]Rating: [/B]${rated}
+[*][B]Genre: [/B] ${genre}
+[*][B]Directed By: [/B] ${director}
+[*][B]Written By: [/B] ${writer}
+[*][B]Starring: [/B] ${actors}
+[*][B]Release Date: [/B] ${released}
+[*][B]Runtime: [/B] ${runtime}
+[*][B]Production: [/B] ${production} [/LIST]
+[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Media Info[/b][/color][/size][/indent]\n
+[spoiler='Click here to view Media Info']\n ${MEDIAINFO} \n[/spoiler]
+[hr][/hr][center][size=6][color=rgb(250, 197, 28)][b]Download Link[/b][/color][/size][/center]\n
+[center][hidereactscore=5][hidereact=1,2,3,4,5,6][DOWNCLOUD]${ddl}[/DOWNCLOUD][/hidereact][/hidereactscore][/center] ${APIKEY}`
     GM_setClipboard (dump);
-    $("#myNumberSum").text ("Copied to clipboard! Just paste on Blackpearl.biz");
+    $(`#myNumberSum`).text (`Copied to clipboard! Just paste on Blackpearl.biz`);
 }});
-});
+});;})
 
 $("#gmCloseDlgBtn").click ( function () {
     $("#gmPopupContainer").hide ();
@@ -105,7 +117,7 @@ GM_addStyle ( "                                                 \
         top:                    53%;                            \
         left:                   70%;                            \
         padding:                2em;                            \
-        background:             #42464D;                     \
+        background:             #42464D;                        \
         border:                 3px double black;               \
         border-radius:          1ex;                            \
         z-index:                777;                            \
@@ -115,4 +127,4 @@ GM_addStyle ( "                                                 \
         margin:                 1em 1em 0;                      \
         border:                 1px outset buttonface;          \
     }                                                           \
-" );
+" )});
