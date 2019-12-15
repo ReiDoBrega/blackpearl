@@ -99,7 +99,7 @@ ${uToob}
 [hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Media Info[/b][/color][/size][/indent]\n
 [spoiler='Click here to view Media Info']\n ${MEDIAINFO} \n[/spoiler]
 [hr][/hr][center][size=6][color=rgb(250, 197, 28)][b]Download Link[/b][/color][/size][/center]\n
-[center][hidereactscore=5][hidereact=1,2,3,4,5,6][DOWNCLOUD]${ddl}[/DOWNCLOUD][/hidereact][/hidereactscore][/center] ${APIKEY}`
+[center][hidereactscore=5][hidereact=1,2,3,4,5,6][DOWNCLOUD]${ddl}[/DOWNCLOUD][/hidereact][/hidereactscore][/center]`
     GM_setClipboard (dump);
     $(`#myNumberSum`).text (`Copied to clipboard! Just paste on Blackpearl.biz`);
 }});
