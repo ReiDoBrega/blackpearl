@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name        Blackpearl IMDB 
-// @version     1.1.0
+// @name        Blackpearl IMDB
+// @version     1.2.0
 // @description Template Maker
 // @author      NotLaxudope
 // @include     https://blackpearl.biz/forums/204/post-thread
@@ -38,7 +38,7 @@ $("body").append ( `                                                            
         <input type="text" id="myNumber1" value="" class="input" placeholder="Enter Youtube Trailer Link">                                               \
         <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                                                      \
         <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                                              \
-        <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>        \
+        <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>                    \
         <p id="myNumberSum">&nbsp;</p>                                                                                                                   \
         <button id="gmAddNumsBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Generate Template</button>  \
         <button id="gmCloseDlgBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Close popup</button>       \
@@ -111,20 +111,40 @@ $("#gmCloseDlgBtn").click ( function () {
 
 
 //--- CSS styles make it work...
-GM_addStyle ( "                                                 \
-    #gmPopupContainer {                                         \
-        position:               fixed;                          \
-        top:                    53%;                            \
-        left:                   70%;                            \
-        padding:                2em;                            \
-        background:             #42464D;                        \
-        border:                 3px double black;               \
-        border-radius:          1ex;                            \
-        z-index:                777;                            \
-    }                                                           \
-    #gmPopupContainer button{                                   \
-        cursor:                 pointer;                        \
-        margin:                 1em 1em 0;                      \
-        border:                 1px outset buttonface;          \
-    }                                                           \
+GM_addStyle ( "                                                   \
+    @media screen and (min-width: 300px) {                        \
+      #gmPopupContainer {                                         \
+            position:               fixed;                        \
+            bottom:                 0;                            \
+            right:                  0;                            \
+            padding:                1em;                          \
+            background:             #42464D;                      \
+            border:                 1px double black;             \
+            border-radius:          1ex;                          \
+            margin-left:            -8px;                         \
+            z-index:                777;                          \
+        }                                                         \
+        #gmPopupContainer button{                                 \
+            cursor:                 pointer;                      \
+            margin:                 1em 1em 0;                    \
+            border:                 1px outset buttonface;        \
+        }                                                         \
+    @media screen and (min-width: 768px) {                        \
+      #gmPopupContainer {                                         \
+            position:               fixed;                        \
+            bottom:                 0;                            \
+            right:                  0;                            \
+            padding:                2em;                          \
+            background:             #42464D;                      \
+            border:                 3px double black;             \
+            border-radius:          1ex;                          \
+            margin-left:            -8px;                         \
+            z-index:                777;                          \
+        }                                                         \
+        #gmPopupContainer button{                                 \
+            cursor:                 pointer;                      \
+            margin:                 1em 1em 0;                    \
+            border:                 1px outset buttonface;        \
+        }                                                         \
+    }                                                             \
 " )});
