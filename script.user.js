@@ -40,7 +40,7 @@
 
 GM.getValue("APIKEY", "foo").then(value => { const APIVALUE = value
 if (APIVALUE !== 'foo'){
-   var omdbstyle = `style="visibility:hidden"`;
+   var omdbstyle = `style="display:none"`;
 }
 
 

@@ -1,7 +1,7 @@
 # Blackpearl
 OMDB Thread Temaplate Generate userscript
 
-![screenshot](https://i.imgur.com/AD30x9Y.jpg)
+<img src="https://i.imgur.com/NA0vQ1c.png" width="439" height="392">
 
 <a href="https://raw.githubusercontent.com/laxudope/blackpearl/master/script.user.js">Click to install script </a>
 <small>(A userscript engine, like [Violentmonkey](https://violentmonkey.github.io/get-it/) or [Tampermonkey](https://www.tampermonkey.net/) is required.)</small>
