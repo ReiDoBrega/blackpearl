@@ -3,9 +3,7 @@
 // @version     1.2.0
 // @description Template Maker
 // @author      NotLaxudope
-// @include     https://blackpearl.biz/forums/204/post-thread
-// @include     https://blackpearl.biz/forums/183/post-thread
-// @include     https://blackpearl.biz/forums/184/post-thread
+// @include     https://blackpearl.biz/forums/129/post-thread
 // @include     https://blackpearl.biz/forums/172/post-thread
 // @include     https://blackpearl.biz/forums/173/post-thread
 // @include     https://blackpearl.biz/forums/174/post-thread
@@ -16,19 +14,21 @@
 // @include     https://blackpearl.biz/forums/180/post-thread
 // @include     https://blackpearl.biz/forums/181/post-thread
 // @include     https://blackpearl.biz/forums/182/post-thread
-// @include     https://blackpearl.biz/forums/129/post-thread 
-// @include     https://blackpearl.biz/forums/208/post-thread
-// @include     https://blackpearl.biz/forums/206/post-thread
-// @include     https://blackpearl.biz/forums/193/post-thread
-// @include     https://blackpearl.biz/forums/194/post-thread
+// @include     https://blackpearl.biz/forums/183/post-thread
+// @include     https://blackpearl.biz/forums/184/post-thread
 // @include     https://blackpearl.biz/forums/187/post-thread
 // @include     https://blackpearl.biz/forums/188/post-thread
 // @include     https://blackpearl.biz/forums/189/post-thread
 // @include     https://blackpearl.biz/forums/190/post-thread
+// @include     https://blackpearl.biz/forums/193/post-thread
+// @include     https://blackpearl.biz/forums/194/post-thread
 // @include     https://blackpearl.biz/forums/197/post-thread
 // @include     https://blackpearl.biz/forums/198/post-thread
 // @include     https://blackpearl.biz/forums/199/post-thread
 // @include     https://blackpearl.biz/forums/200/post-thread
+// @include     https://blackpearl.biz/forums/204/post-thread
+// @include     https://blackpearl.biz/forums/206/post-thread
+// @include     https://blackpearl.biz/forums/208/post-thread
 // @include     https://blackpearl.biz/forums/223/post-thread
 // @require     https://code.jquery.com/jquery-3.2.1.min.js
 // @grant       GM_addStyle
@@ -49,6 +49,7 @@ $("body").append ( `                                                            
     <form> <!-- For true form use method="POST" action="YOUR_DESIRED_URL" -->                                                                            \
         <input type="text" id="myNumber5" value="" ${omdbstyle} class="input" placeholder="Omdb API Key">                                                \
         <input type="text" id="myNumber1" value="" class="input" placeholder="Enter Youtube Trailer Link">                                               \
+        <input type="text" id="myNumber6" value="" class="input" placeholder="Enter Your Screenshot Links">                                              \
         <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                                                      \
         <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                                              \
         <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>                    \
@@ -62,16 +63,27 @@ $("body").append ( `                                                            
 
 //--- Use jQuery to activate the dialog buttons.
 $("#gmAddNumsBtn").click ( function () {
-    var omdbkey   = $("#myNumber5").val ();
     var uToob   = $("#myNumber1").val ();
     var ddl   = $("#myNumber2").val ();
     var IID   = $("#myNumber3").val ();
     var MEDIAINFO = $("#myNumber4").val ();
+    var omdbkey   = $("#myNumber5").val ();
+    var screenshots   = $("#myNumber6").val ();
     if (omdbkey) {
        GM.setValue("APIKEY", omdbkey);
     }
 GM.getValue("APIKEY", "foo").then(value => {
     const APIKEY = value
+if (screenshots) {
+   screenshots = screenshots.split(" ");
+   var screen = `\n[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Screenshots[/b][/color][/size][/indent]\n [Spoiler='screenshots']`;
+   for (var ss of screenshots) {
+       screen += `[img]${ss}[/img]`;
+   }
+   screen += `[/Spoiler] \n`;
+} else {
+  screen = ""
+}
 GM_xmlhttpRequest({
 method: "GET",
 url: `http://www.omdbapi.com/?apikey=${APIKEY}&i=${IID}&plot=full&y&r=json`,
@@ -99,7 +111,7 @@ var json = JSON.parse(response.responseText);
 [size=6][img]https://i.imgur.com/sEpKj3O.png[/img]${imdbvotes}[/size][/center]
 [hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Plot[/b][/color][/size][/indent]\n\n ${plot}
 [hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Trailer[/b][/color][/size][/indent]\n
-${uToob}
+${uToob}${screen}
 [hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Movie Info[/b][/color][/size][/indent]\n
 [LIST][*][B]Rating: [/B]${rated}
 [*][B]Genre: [/B] ${genre}
