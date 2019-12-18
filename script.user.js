@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Blackpearl IMDB
-// @version     1.2.0
+// @version     1.3.0
 // @description Template Maker
 // @author      NotLaxudope
 // @include     https://blackpearl.biz/forums/129/post-thread
@@ -53,7 +53,10 @@ $("body").append ( `                                                            
         <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                                                      \
         <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                                              \
         <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>                    \
-        <p id="myNumberSum">&nbsp;</p>                                                                                                                   \
+        <input type="checkbox" id="Downcloud" value="Downcloud" checked> Downcloud<br>                                                                 \
+        <input type="checkbox" id="HideReact" value="HideReact" checked> HideReact<br>                                                                 \
+        <input type="number" id="HideReactScore" min="0" max="100" value="0"> HideReactScore<br>                                                       \
+        <input type="number" id="HidePosts" min="0" max="50" value="0"> HidePosts<br>                                                                  \
         <button id="gmAddNumsBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Generate Template</button>  \
         <button id="gmCloseDlgBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Close popup</button>       \
     </form>                                                                                                                                              \
@@ -63,14 +66,32 @@ $("body").append ( `                                                            
 
 //--- Use jQuery to activate the dialog buttons.
 $("#gmAddNumsBtn").click ( function () {
-    var uToob   = $("#myNumber1").val ();
-    var ddl   = $("#myNumber2").val ();
-    var IID   = $("#myNumber3").val ();
+    var uToob = $("#myNumber1").val ();
+    var ddl = $("#myNumber2").val ();
+    var IID = $("#myNumber3").val ();
     var MEDIAINFO = $("#myNumber4").val ();
-    var omdbkey   = $("#myNumber5").val ();
-    var screenshots   = $("#myNumber6").val ();
+    var omdbkey = $("#myNumber5").val ();
+    var screenshots = $("#myNumber6").val ();
+    var hidereactscore = $("#HideReactScore").val ();
+    var hideposts = $("#HidePosts").val ();
     if (omdbkey) {
        GM.setValue("APIKEY", omdbkey);
+    }
+    if (Downcloud.checked){
+        ddl = '[DOWNCLOUD]' + ddl
+        ddl += '[/DOWNCLOUD]'
+    }
+    if (HideReact.checked){
+        ddl = '[HIDEREACT]' + ddl
+        ddl += '[/HIDEREACT]'
+    }
+    if (hidereactscore !== "0"){
+        ddl = `[HIDEREACTSCORE=${hidereactscore}]` + ddl
+        ddl += '[/HIDEREACTSCORE]'
+    }
+    if (hideposts !== "0"){
+        ddl = `[HIDEPOSTS=${hideposts}]` + ddl
+        ddl += '[/HIDEPOSTS]'
     }
 GM.getValue("APIKEY", "foo").then(value => {
     const APIKEY = value
@@ -84,11 +105,15 @@ if (screenshots) {
 } else {
   screen = ""
 }
+if (uToob.match(/[a-z]/)) {
+    var trailer = `\n[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Trailer[/b][/color][/size][/indent]\n ${uToob}`
+} else {
+    trailer = ""
+}
 GM_xmlhttpRequest({
 method: "GET",
 url: `http://www.omdbapi.com/?apikey=${APIKEY}&i=${IID}&plot=full&y&r=json`,
 onload: function(response) {
-
 var json = JSON.parse(response.responseText);
     var title = json.Title;
     var year = json.Year;
@@ -109,9 +134,7 @@ var json = JSON.parse(response.responseText);
 [color=rgb(250, 197, 28)][b][size=6] ${title} (${year})[/size][/b][/color]
 [url=https://www.imdb.com/title/${imdb_id}][img]https://i.imgur.com/rcSipDw.png[/img][/url][size=6][b] ${rating}[/b]/10[/size]
 [size=6][img]https://i.imgur.com/sEpKj3O.png[/img]${imdbvotes}[/size][/center]
-[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Plot[/b][/color][/size][/indent]\n\n ${plot}
-[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Trailer[/b][/color][/size][/indent]\n
-${uToob}${screen}
+[hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Plot[/b][/color][/size][/indent]\n\n ${plot}${trailer}${screen}
 [hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Movie Info[/b][/color][/size][/indent]\n
 [LIST][*][B]Rating: [/B]${rated}
 [*][B]Genre: [/B] ${genre}
@@ -124,7 +147,7 @@ ${uToob}${screen}
 [hr][/hr][indent][size=6][color=rgb(250, 197, 28)][b]Media Info[/b][/color][/size][/indent]\n
 [spoiler='Click here to view Media Info']\n ${MEDIAINFO} \n[/spoiler]
 [hr][/hr][center][size=6][color=rgb(250, 197, 28)][b]Download Link[/b][/color][/size][/center]\n
-[center][hidereactscore=5][hidereact=1,2,3,4,5,6][DOWNCLOUD]${ddl}[/DOWNCLOUD][/hidereact][/hidereactscore][/center]`
+[center]${ddl}[/center]`
     GM_setClipboard (dump);
     $(`#myNumberSum`).text (`Copied to clipboard! Just paste on Blackpearl.biz`);
 }});
