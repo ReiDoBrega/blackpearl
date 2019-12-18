@@ -53,10 +53,11 @@ $("body").append ( `                                                            
         <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                                                      \
         <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                                              \
         <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>                    \
-        <input type="checkbox" id="Downcloud" value="Downcloud" checked> Downcloud<br>                                                                 \
-        <input type="checkbox" id="HideReact" value="HideReact" checked> HideReact<br>                                                                 \
-        <input type="number" id="HideReactScore" min="0" max="100" value="0"> HideReactScore<br>                                                       \
-        <input type="number" id="HidePosts" min="0" max="50" value="0"> HidePosts<br>                                                                  \
+        <input type="checkbox" id="Downcloud" value="Downcloud" checked> Downcloud<br>                                                                   \
+        <input type="checkbox" id="HideReact" value="HideReact" checked> HideReact<br>                                                                   \
+        <input type="number" id="HideReactScore" min="0" max="100" value="0"> HideReactScore<br>                                                         \
+        <input type="number" id="HidePosts" min="0" max="50" value="0"> HidePosts<br>                                                                    \
+        <p id="myNumberSum">&nbsp;</p>                                                                                                                   \
         <button id="gmAddNumsBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Generate Template</button>  \
         <button id="gmCloseDlgBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Close popup</button>       \
     </form>                                                                                                                                              \
