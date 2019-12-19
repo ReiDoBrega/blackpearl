@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Blackpearl IMDB
-// @version     1.3.0
+// @version     1.3.1
 // @description Template Maker
 // @author      NotLaxudope
 // @include     https://blackpearl.biz/forums/129/post-thread
@@ -83,7 +83,7 @@ $("#gmAddNumsBtn").click ( function () {
         ddl += '[/DOWNCLOUD]'
     }
     if (HideReact.checked){
-        ddl = '[HIDEREACT]' + ddl
+        ddl = '[HIDEREACT=1,2,3,4,5,6]' + ddl
         ddl += '[/HIDEREACT]'
     }
     if (hidereactscore !== "0"){
