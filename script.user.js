@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Blackpearl IMDB
-// @version     1.3.1
+// @version     1.3.2
 // @description Template Maker
 // @author      NotLaxudope
 // @include     https://blackpearl.biz/forums/129/post-thread
@@ -53,8 +53,15 @@ $("body").append ( `                                                            
         <input type="text" id="myNumber2" value="" class="input" placeholder="Enter Download Link">                                                      \
         <input type="text" id="myNumber3" value="" class="input" placeholder="Enter IMDB ID i.e tt0416449">                                              \
         <textarea rows="1" style="width:100%;" class="input" name="message" id="myNumber4" placeholder="Enter Media INFO"></textarea>                    \
-        <input type="checkbox" id="Downcloud" value="Downcloud" checked> Downcloud<br>                                                                   \
-        <input type="checkbox" id="HideReact" value="HideReact" checked> HideReact<br>                                                                   \
+        <p>DownCloud</p>                                                                                                                                 \
+        <label class="switch">                                                                                                                           \
+        <input type="checkbox"  id="Downcloud" value="Downcloud" checked></input>                                                                        \
+        <span class="slider round"></span></label>                                                                                                       \
+        <p>HideReact</p>                                                                                                                                 \
+        <label class="switch">                                                                                                                           \
+        <input type="checkbox" id="HideReact" value="HideReact" checked></input>                                                                         \
+        <span class="slider round"></span>                                                                                                               \
+        </label><br><br>                                                                                                                                 \
         <input type="number" id="HideReactScore" min="0" max="100" value="0"> HideReactScore<br>                                                         \
         <input type="number" id="HidePosts" min="0" max="50" value="0"> HidePosts<br>                                                                    \
         <p id="myNumberSum">&nbsp;</p>                                                                                                                   \
@@ -178,6 +185,58 @@ GM_addStyle ( "                                                   \
             margin:                 1em 1em 0;                    \
             border:                 1px outset buttonface;        \
         }                                                         \
+                .switch {                                         \
+            position: relative;                                   \
+            display: inline-block;                                \
+            width: 42px;                                          \
+            height: 17px;                                         \
+            }                                                     \
+        .switch input {                                           \
+           opacity: 0;                                            \
+           width: 0;                                              \
+           height: 0;                                             \
+        }                                                         \
+        .slider {                                                 \
+           position: absolute;                                    \
+           cursor: pointer;                                       \
+           top: 0;                                                \
+           left: 0;                                               \
+           right: 0;                                              \
+           bottom: 0;                                             \
+           background-color: #ccc;                                \
+           -webkit-transition: .4s;                               \
+           transition: .4s;                                       \
+        }                                                         \
+        .slider:before {                                          \
+           position: absolute;                                    \
+           content: '';                                           \
+           height: 13px;                                          \
+           width: 13px;                                           \
+           left: 2px;                                             \
+           bottom: 2px;                                           \
+           background-color: #42464D;                             \
+           -webkit-transition: .4s;                               \
+           transition: .4s;                                       \
+        }                                                         \
+        input:checked + .slider {                                 \
+           background-color: #4caf50;                             \
+        }                                                         \
+        input:focus + .slider {                                   \
+           box-shadow: 0 0 1px #4caf50;                           \
+        }                                                         \
+        input:checked + .slider:before {                          \
+           -webkit-transform: translateX(26px);                   \
+           -ms-transform: translateX(26px);                       \
+           transform: translateX(26px);                           \
+        }                                                         \
+        /* Rounded sliders */                                     \
+        .slider.round {                                           \
+           border-radius: 34px;                                   \
+        }                                                         \
+        .slider.round:before {                                    \
+           border-radius: 50%;                                    \
+        }                                                         \
+            }                                                     \
     @media screen and (min-width: 768px) {                        \
       #gmPopupContainer {                                         \
             position:               fixed;                        \
@@ -195,5 +254,56 @@ GM_addStyle ( "                                                   \
             margin:                 1em 1em 0;                    \
             border:                 1px outset buttonface;        \
         }                                                         \
-    }                                                             \
+        .switch {                                                 \
+            position: relative;                                   \
+            display: inline-block;                                \
+            width: 42px;                                          \
+            height: 17px;                                         \
+            }                                                     \
+        .switch input {                                           \
+           opacity: 0;                                            \
+           width: 0;                                              \
+           height: 0;                                             \
+        }                                                         \
+        .slider {                                                 \
+           position: absolute;                                    \
+           cursor: pointer;                                       \
+           top: 0;                                                \
+           left: 0;                                               \
+           right: 0;                                              \
+           bottom: 0;                                             \
+           background-color: #ccc;                                \
+           -webkit-transition: .4s;                               \
+           transition: .4s;                                       \
+        }                                                         \
+        .slider:before {                                          \
+           position: absolute;                                    \
+           content: '';                                           \
+           height: 13px;                                          \
+           width: 13px;                                           \
+           left: 2px;                                             \
+           bottom: 2px;                                           \
+           background-color: #42464D;                             \
+           -webkit-transition: .4s;                               \
+           transition: .4s;                                       \
+        }                                                         \
+        input:checked + .slider {                                 \
+           background-color: #4caf50;                             \
+        }                                                         \
+        input:focus + .slider {                                   \
+           box-shadow: 0 0 1px #4caf50;                           \
+        }                                                         \
+        input:checked + .slider:before {                          \
+           -webkit-transform: translateX(26px);                   \
+           -ms-transform: translateX(26px);                       \
+           transform: translateX(26px);                           \
+        }                                                         \
+        /* Rounded sliders */                                     \
+        .slider.round {                                           \
+           border-radius: 34px;                                   \
+        }                                                         \
+        .slider.round:before {                                    \
+           border-radius: 50%;                                    \
+        }                                                         \
+            }                                                     \
 " )});
