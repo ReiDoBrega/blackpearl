@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Blackpearl IMDB
-// @version     1.3.2
+// @version     1.3.3
 // @description Template Maker
 // @author      NotLaxudope
 // @include     https://blackpearl.biz/forums/129/post-thread
@@ -62,7 +62,7 @@ $("body").append ( `                                                            
         <input type="checkbox" id="HideReact" value="HideReact" checked></input>                                                                         \
         <span class="slider round"></span>                                                                                                               \
         </label><br><br>                                                                                                                                 \
-        <input type="number" id="HideReactScore" min="0" max="100" value="0"> HideReactScore<br>                                                         \
+        <input type="number" id="HideReactScore" min="0" max="100" value="0"> HideReactScore                                                             \
         <input type="number" id="HidePosts" min="0" max="50" value="0"> HidePosts<br>                                                                    \
         <p id="myNumberSum">&nbsp;</p>                                                                                                                   \
         <button id="gmAddNumsBtn" class="button--primary button button--icon button--icon--login rippleButton" type="button">Generate Template</button>  \
