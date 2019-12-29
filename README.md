@@ -1,8 +1,8 @@
 
 # Blackpearl OMDB Template Generator
 OMDB Thread Template Generator userscript
-
-![](https://i.imgur.com/H02asYe.jpg)
+<!-- keep image height ~ 500px -->
+![](https://i.imgur.com/0Y0Qqz8.png)
 
 ## Requirements:
 A userscript manager + installing the script
