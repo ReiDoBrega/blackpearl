@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Blackpearl IMDB
-// @version     1.3.3
+// @version     1.3.4
 // @description Template Maker
 // @author      NotLaxudope
 // @include     https://blackpearl.biz/forums/129/post-thread
@@ -185,7 +185,11 @@ GM_addStyle ( "                                                   \
             margin:                 1em 1em 0;                    \
             border:                 1px outset buttonface;        \
         }                                                         \
-                .switch {                                         \
+        p {                                                       \
+            margin-top: 5px;                                      \
+            margin-bottom: 5px;                                   \
+        }                                                         \
+         .switch {                                                \
             position: relative;                                   \
             display: inline-block;                                \
             width: 42px;                                          \
@@ -253,6 +257,10 @@ GM_addStyle ( "                                                   \
             cursor:                 pointer;                      \
             margin:                 1em 1em 0;                    \
             border:                 1px outset buttonface;        \
+        }                                                         \
+        p {                                                       \
+            margin-top: 5px;                                      \
+            margin-bottom: 5px;                                   \
         }                                                         \
         .switch {                                                 \
             position: relative;                                   \
