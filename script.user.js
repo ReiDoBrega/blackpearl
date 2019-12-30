@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Blackpearl IMDB
-// @version     2.0.0
+// @version     2.0.1
 // @description Template Maker
 // @author      NotLaxudope
 // @include     https://blackpearl.biz/forums/129/post-thread
@@ -40,27 +40,26 @@
 // @grant       GM.setValue
 // @grant       GM.getValue
 // ==/UserScript==
+
 GM.getValue("APIKEY", "foo").then(value => { const APIVALUE = value
 if (APIVALUE !== 'foo'){
    $("body").append ( `                                                                                                                                  \
     <div id="gmPopupContainer">                                                                                                                          \
     <form> <!-- For true form use method="POST" action="YOUR_DESIRED_URL" -->                                                                            \
         <input type="text" id="hiddenIID" value="" style="display:none">                                                                                 \
-        <input type="text" id="myNumber1" value="" class="field" placeholder="Youtube Trailer Link">                                                     \
-        <input type="text" id="myNumber6" value="" class="field" placeholder="Screenshot Links">                                                         \
-        <input type="text" id="myNumber2" value="" class="field" placeholder="Download Link">                                                            \
         <div class="ui search">                                                                                                                          \
-            <input type="text" class="prompt" id="searchID" placeholder="IMDB ID or Title">                                                              \
+            <input type="text" class="prompt" id="searchID" placeholder="IMDB ID or Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'IMDB ID or Title'">               \
             <div class="results"></div>                                                                                                                  \
         </div>                                                                                                                                           \
-        <div class="mediainfo">                                                                                                                          \
-        <textarea rows="1" class="input" name="message" id="mediainfo" placeholder="Mediainfo"></textarea>                                               \
-        </div>                                                                                                                                            \
-        <p>DownCloud</p>                                                                                                                                 \
+        <input type="text" id="myNumber6" value="" class="field" placeholder="Screenshot Links" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Screenshot Links'">          \
+        <input type="text" id="myNumber1" value="" class="field" placeholder="Youtube Trailer Link" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Youtube Trailer Link'">  \
+        <input type="text" id="myNumber2" value="" class="field" placeholder="Download Link" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Download Link'">                \
+        <textarea rows="1" style="width:100%;" class="field" name="message" id="myNumber4" placeholder="Mediainfo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mediainfo'"></textarea>\
+        <span>DownCloud</span>                                                                                                                           \
         <label class="switch">                                                                                                                           \
         <input type="checkbox"  id="Downcloud" value="Downcloud" checked></input>                                                                        \
-        <span class="slider round"></span></label>                                                                                                       \
-        <p>HideReact</p>                                                                                                                                 \
+        <span class="slider round"></span></label>&nbsp;                                                                                                 \
+        <span>HideReact</span>                                                                                                                           \
         <label class="switch">                                                                                                                           \
         <input type="checkbox" id="HideReact" value="HideReact" checked></input>                                                                         \
         <span class="slider round"></span>                                                                                                               \
@@ -78,12 +77,12 @@ if (APIVALUE !== 'foo'){
     $("body").append ( `                                                                                                                                 \
     <div id="gmPopupContainer">                                                                                                                          \
     <form>                                                                                                                                               \
-        <label>Enter Your OMDB API Key, Save Key, Then Refresh the page!</label>                                                                         \
+        <label>Enter Your OMDB API Key, Then Click On Save :)</label>                                                                                    \
         <input type="text" id="myNumber5" value="" class="input" placeholder="Omdb API Key">                                                             \
-        <button id="gmAddNumsBtn" type="button">Save Key</button>                                                                                        \
+        <button id="gmAddNumsBtn" onClick="window.location.reload();" type="button">Save Key</button>                                                    \
         <button id="gmCloseDlgBtn" type="button">Close Popup</button>                                                                                    \
     </form>                                                                                                                                              \
-    </div>                                                                                                                                               \
+    </div>                                                                                                                                               \                                                                                                                                           \
 ` );
 }
 GM.getValue("APIKEY", "foo").then(value => {
@@ -108,7 +107,7 @@ $("#gmAddNumsBtn").click ( function () {
     var uToob = $("#myNumber1").val ();
     var ddl = $("#myNumber2").val ();
     var IID = $("#hiddenIID").val ();
-    var MEDIAINFO = $("#mediainfo").val ();
+    var MEDIAINFO = $("#myNumber4").val ();
     var omdbkey = $("#myNumber5").val ();
     var screenshots = $("#myNumber6").val ();
     var hidereactscore = $("#HideReactScore").val ();
@@ -221,14 +220,13 @@ GM_addStyle ( "                                                   \
             text-align:             center;                       \
             text-decoration:        none;                         \
             display:                inline-block;                 \
-            font-size:              16px;                         \
+            font-size:              14px;                         \
             font-weight:            400;                          \
-            padding:                8px;                          \
-            margin:                 0px 5px 0px 0px;              \
+            padding:                4px;                          \
             cursor:                 pointer;                      \
             outline:                none;                         \
             border:                 none;                         \
-            border-radius:          10px;                         \
+            border-radius:          12px;                         \
         }                                                         \
       /* Reactscore & Posts */                                    \
       input[type=number]{                                         \
@@ -364,14 +362,13 @@ GM_addStyle ( "                                                   \
             text-align:             center;                       \
             text-decoration:        none;                         \
             display:                inline-block;                 \
-            font-size:              16px;                         \
+            font-size:              15px;                         \
             font-weight:            400;                          \
-            padding:                8px;                          \
-            margin:                 0px 5px 0px 0px;              \
+            padding:                6px;                          \
             cursor:                 pointer;                      \
             outline:                none;                         \
             border:                 none;                         \
-            border-radius:          10px;                         \
+            border-radius:          12px;                         \
         }                                                         \
       input[type=number]{                                         \
             border-bottom:          2px solid teal;               \
@@ -410,6 +407,9 @@ GM_addStyle ( "                                                   \
             background:             transparent;                  \
             transition:             border-color 0.2s;            \
       }                                                           \
+        &::placeholder {                                          \
+            color: transparent;                                   \
+     }                                                            \
       .field:focus {                                              \
             padding-bottom:         6px;                          \
             border-bottom:          2px solid teal;               \
