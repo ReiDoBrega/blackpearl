@@ -95,7 +95,6 @@ $('.ui.search')
         fields: {
           results : 'Search',
           title   : 'Title',
-          description : 'Year',
         },
         onSelect: function(response){
             $('#hiddenIID').val(response.imdbID);
