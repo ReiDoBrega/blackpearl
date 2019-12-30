@@ -65,7 +65,8 @@ if (APIVALUE !== 'foo'){
         <span class="slider round"></span>                                                                                                               \
         </label><br><br>                                                                                                                                 \
         <input type="number" id="HideReactScore" min="0" max="100" value="0"> HideReactScore                                                             \
-        <input type="number" id="HidePosts" min="0" max="50" value="0"> HidePosts<br>                                                                    \
+        <input type="number" id="HidePosts" min="0" max="50" value="0"> HidePosts<br>                                                          \
+        <input type="number" id="HideDays" min="0" max="50" value="0"> Days<br>                                                                        \
         <p id="myNumberSum">&nbsp;</p>                                                                                                                   \
         <button id="gmAddNumsBtn" type="button">Generate Template</button>                                                                               \
         <div class="divider"/>                                                                                                                           \
@@ -111,6 +112,7 @@ $("#gmAddNumsBtn").click ( function () {
     var screenshots = $("#screensLinks").val ();
     var hidereactscore = $("#HideReactScore").val ();
     var hideposts = $("#HidePosts").val ();
+    var hidedays = $("#HideDays").val ();
     if (omdbkey) {
        GM.setValue("APIKEY", omdbkey);
     }
@@ -125,6 +127,9 @@ $("#gmAddNumsBtn").click ( function () {
     }
     if (hideposts !== "0"){
         ddl = `[HIDEPOSTS=${hideposts}]` + ddl + '[/HIDEPOSTS]'
+    }
+    if (hidedays !== "0"){
+        ddl = `[DAYS=${hidedays}]` + ddl + '[/DAYS]'
     }
     if (!IID){
         IID = $("#searchID").val ();
