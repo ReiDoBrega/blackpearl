@@ -48,13 +48,13 @@ if (APIVALUE !== 'foo'){
     <form> <!-- For true form use method="POST" action="YOUR_DESIRED_URL" -->                                                                            \
         <input type="text" id="hiddenIID" value="" style="display:none">                                                                                 \
         <div class="ui search">                                                                                                                          \
-            <input type="text" class="prompt" id="searchID" placeholder="IMDB ID or Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'IMDB ID or Title'">               \
+            <input type="text" class="prompt" id="searchID" placeholder="IMDB ID or Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'IMDB ID or Title'">                             \
             <div class="results"></div>                                                                                                                  \
         </div>                                                                                                                                           \
-        <input type="text" id="myNumber6" value="" class="field" placeholder="Screenshot Links" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Screenshot Links'">          \
-        <input type="text" id="myNumber1" value="" class="field" placeholder="Youtube Trailer Link" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Youtube Trailer Link'">  \
-        <input type="text" id="myNumber2" value="" class="field" placeholder="Download Link" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Download Link'">                \
-        <textarea rows="1" style="width:100%;" class="field" name="message" id="myNumber4" placeholder="Mediainfo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mediainfo'"></textarea>\
+        <input type="text" id="screensLinks" value="" class="field" placeholder="Screenshot Links" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Screenshot Links'">                     \
+        <input type="text" id="ytLink" value="" class="field" placeholder="Youtube Trailer Link" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Youtube Trailer Link'">                   \
+        <input type="text" id="ddl" value="" class="field" placeholder="Download Link" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Download Link'">                                    \
+        <textarea rows="1" style="width:100%;" class="field" name="message" id="medianInfo" placeholder="Mediainfo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mediainfo'"></textarea>\
         <span>DownCloud</span>                                                                                                                           \
         <label class="switch">                                                                                                                           \
         <input type="checkbox"  id="Downcloud" value="Downcloud" checked></input>                                                                        \
@@ -78,7 +78,7 @@ if (APIVALUE !== 'foo'){
     <div id="gmPopupContainer">                                                                                                                          \
     <form>                                                                                                                                               \
         <label>Enter Your OMDB API Key, Then Click On Save :)</label>                                                                                    \
-        <input type="text" id="myNumber5" value="" class="input" placeholder="Omdb API Key">                                                             \
+        <input type="text" id="omdbKey" value="" class="input" placeholder="Omdb API Key">                                                               \
         <button id="gmAddNumsBtn" onClick="window.location.reload();" type="button">Save Key</button>                                                    \
         <button id="gmCloseDlgBtn" type="button">Close Popup</button>                                                                                    \
     </form>                                                                                                                                              \
@@ -104,12 +104,12 @@ $('.ui.search')
       })
 //--- Use jQuery to activate the dialog buttons.
 $("#gmAddNumsBtn").click ( function () {
-    var uToob = $("#myNumber1").val ();
-    var ddl = $("#myNumber2").val ();
+    var uToob = $("#ytLink").val ();
+    var ddl = $("#ddl").val ();
     var IID = $("#hiddenIID").val ();
-    var MEDIAINFO = $("#myNumber4").val ();
-    var omdbkey = $("#myNumber5").val ();
-    var screenshots = $("#myNumber6").val ();
+    var MEDIAINFO = $("#medianInfo").val ();
+    var omdbkey = $("#omdbKey").val ();
+    var screenshots = $("#screensLinks").val ();
     var hidereactscore = $("#HideReactScore").val ();
     var hideposts = $("#HidePosts").val ();
     if (omdbkey) {
@@ -226,7 +226,7 @@ GM_addStyle ( "                                                   \
             cursor:                 pointer;                      \
             outline:                none;                         \
             border:                 none;                         \
-            border-radius:          12px;                         \
+            border-radius:          10px;                         \
         }                                                         \
       /* Reactscore & Posts */                                    \
       input[type=number]{                                         \
@@ -368,7 +368,7 @@ GM_addStyle ( "                                                   \
             cursor:                 pointer;                      \
             outline:                none;                         \
             border:                 none;                         \
-            border-radius:          12px;                         \
+            border-radius:          10px;                         \
         }                                                         \
       input[type=number]{                                         \
             border-bottom:          2px solid teal;               \
